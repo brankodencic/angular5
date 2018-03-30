@@ -11,3 +11,5 @@ export class AppComponent {
 }
 
 // https://angular.io/tutorial/toh-pt3#masterdetail-components
+// https://angular.io/tutorial/toh-pt4
+// https://angular.io/tutorial/toh-pt5
