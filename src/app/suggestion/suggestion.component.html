@@ -1,0 +1,18 @@
+
+
+<!-- <h2>{{ suggested | uppercase }} Details</h2> -->
+<!-- <div><span>name: </span>{{city}}</div> -->
+<div>
+	<label>name:
+		<input [(ngModel)]="suggestionInput" (keyup)="generateSuggestions(suggestionInput)" (keyup)="startCountDown()" placeholder="name">
+	</label>
+</div>
+<div>
+	<label>preostalo vreme:
+		<span>{{vreme1}}</span>
+	</label>
+</div>
+
+<div *ngIf="suggested">
+	<div *ngFor="let suggestion of suggested">{{suggestion}}</div>
+</div>
