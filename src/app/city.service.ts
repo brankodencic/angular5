@@ -13,7 +13,6 @@ export class CityService {
 	constructor(private messageService: MessageService) { }
 
 	getCities(): Observable<City[]> {
-		this.messageService.add('CityService: fetched cities');
 		return of(CITIES);
 	}
 }

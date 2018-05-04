@@ -10,6 +10,10 @@ import { MessageService } from './message.service';
 import { MessagesComponent } from './messages/messages.component';
 
 import { LowerCasePipe } from '@angular/common';
+import { Pipe, PipeTransform } from '@angular/core';
+import { formatedtime } from './formated.time.pipe';
+import { AppRoutingModule } from './/app-routing.module';
+import { ResultsComponent } from './results/results.component';
 
 
 @NgModule({
@@ -17,16 +21,20 @@ import { LowerCasePipe } from '@angular/common';
 		AppComponent,
 		CitiesComponent,
 		SuggestionComponent,
-		MessagesComponent
+		MessagesComponent,
+		formatedtime,
+		ResultsComponent
 	],
 	imports: [
 		BrowserModule,
-		FormsModule
+		FormsModule,
+		AppRoutingModule
 	],
 	providers: [
 		CityService,
 		MessageService,
-		LowerCasePipe
+		LowerCasePipe,
+		formatedtime
 	],
 	bootstrap: [AppComponent]
 })

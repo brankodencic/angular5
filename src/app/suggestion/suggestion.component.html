@@ -2,17 +2,28 @@
 
 <!-- <h2>{{ suggested | uppercase }} Details</h2> -->
 <!-- <div><span>name: </span>{{city}}</div> -->
-<div>
-	<label>name:
-		<input [(ngModel)]="suggestionInput" (keyup)="generateSuggestions(suggestionInput)" (keyup)="startCountDown()" placeholder="name">
-	</label>
-</div>
-<div>
-	<label>preostalo vreme:
-		<span>{{vreme1}}</span>
-	</label>
-</div>
 
-<div *ngIf="suggested">
-	<div *ngFor="let suggestion of suggested">{{suggestion}}</div>
+<div class="row">
+	<div class="col-md-6">
+		<div>
+			<label>preostalo vreme:
+				<span *ngIf="vreme1 > 0">{{vreme1 | formatedtime:vreme1}}</span>
+			</label>
+		</div>
+		<div>
+			<label>name:
+				<input [(ngModel)]="suggestionInput" (keyup)="fillSuggestions(suggestionInput)" (keyup)="startCountDown()" placeholder="name">
+			</label>
+			<div id="autocompleteList" class="col-md-6" *ngIf="suggested.length">
+				<div *ngFor="let suggestion of suggested" (click)="checkAndAddPicked(suggestion)">{{suggestion}}</div>
+			</div>
+		</div>
+	</div>
+	<div id="chosen" *ngIf="pickedArray">
+		<span>Choosen:</span>
+		<div *ngFor="let pickedItem of pickedArray" (click)="removeSuggestion(pickedItem)">{{pickedItem}} <span class="delete">x</span></div>
+		<div>
+			<div class="btn btn-success" (click)="endGame()">End early</div>
+		</div>
+	</div>
 </div>
