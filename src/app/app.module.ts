@@ -6,8 +6,6 @@ import { AppComponent } from './app.component';
 import { CitiesComponent } from './cities/cities.component';
 import { SuggestionComponent } from './suggestion/suggestion.component';
 import { CityService } from './city.service';
-import { MessageService } from './message.service';
-import { MessagesComponent } from './messages/messages.component';
 
 import { LowerCasePipe } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
@@ -22,7 +20,6 @@ import { ResultstorageService } from './resultstorage.service';
 		AppComponent,
 		CitiesComponent,
 		SuggestionComponent,
-		MessagesComponent,
 		formatedtime,
 		ResultsComponent
 	],
@@ -34,7 +31,6 @@ import { ResultstorageService } from './resultstorage.service';
 	providers: [
 		CityService,
 		ResultstorageService,
-		MessageService,
 		LowerCasePipe,
 		formatedtime
 	],
