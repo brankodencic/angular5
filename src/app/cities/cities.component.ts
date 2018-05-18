@@ -11,7 +11,6 @@ import { CityService } from '../city.service';
 
 export class CitiesComponent implements OnInit {
 
-	// selectedCity: City;
 	cities: City;
 
 	constructor(private cityService: CityService) {}
@@ -20,10 +19,6 @@ export class CitiesComponent implements OnInit {
 		this.getCities();
 	}
 
-	// onSelect(city: City): void {
-		// this.selectedCity = city;
-	// }
-	
 	getCities(): void {
 		this.cityService.getCities()
 			.subscribe( cities => this.cities = cities[0] );

@@ -14,6 +14,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { formatedtime } from './formated.time.pipe';
 import { AppRoutingModule } from './/app-routing.module';
 import { ResultsComponent } from './results/results.component';
+import { ResultstorageService } from './resultstorage.service';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { ResultsComponent } from './results/results.component';
 	],
 	providers: [
 		CityService,
+		ResultstorageService,
 		MessageService,
 		LowerCasePipe,
 		formatedtime

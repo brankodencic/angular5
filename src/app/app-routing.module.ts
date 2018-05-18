@@ -1,4 +1,4 @@
-import { NgModule }             from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CitiesComponent } from './cities/cities.component';
 import { ResultsComponent } from './results/results.component';
@@ -7,7 +7,7 @@ const routes: Routes = [
 	{
 		path: '',
 		redirectTo: '/game',
-		pathMatch: 'full' 
+		pathMatch: 'full'
 	},
 	{
 		path: 'game',
@@ -16,7 +16,12 @@ const routes: Routes = [
 	{
 		path: 'results',
 		component: ResultsComponent
-	}
+	},
+	{
+		path: '**',
+		redirectTo: '/game',
+		pathMatch: 'full'
+	},
 ];
 
 @NgModule({

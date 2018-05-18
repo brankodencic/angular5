@@ -9,7 +9,6 @@ import { MessageService } from './message.service';
 
 @Injectable()
 export class CityService {
-
 	constructor(private messageService: MessageService) { }
 
 	getCities(): Observable<City[]> {

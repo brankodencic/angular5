@@ -4,7 +4,7 @@
 
 <div>
 	<label>Vreme:
-		<span>{{cities.vreme}}</span>
+		<span>{{cities.vreme | formatedtime:vreme}}</span>
 	</label>
 </div>
 <div>
@@ -13,12 +13,4 @@
 	</label>
 </div>
 
-<!-- <div> -->
-	<!-- <label>Pick: -->
-		<!-- <input [(ngModel)]="suggestionInput" placeholder="name"> -->
-	<!-- </label> -->
-<!-- </div> -->
 <app-suggestion></app-suggestion>
-
-
-<!-- <app-suggestion [city]="selectedCity"></app-suggestion> -->
