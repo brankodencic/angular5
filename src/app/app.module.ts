@@ -9,7 +9,7 @@ import { CityService } from './city.service';
 
 import { LowerCasePipe } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
-import { formatedtime } from './formated.time.pipe';
+import { FormatedTime } from './formated.time.pipe';
 import { AppRoutingModule } from './/app-routing.module';
 import { ResultsComponent } from './results/results.component';
 import { ResultstorageService } from './resultstorage.service';
@@ -20,7 +20,7 @@ import { ResultstorageService } from './resultstorage.service';
 		AppComponent,
 		CitiesComponent,
 		SuggestionComponent,
-		formatedtime,
+		FormatedTime,
 		ResultsComponent
 	],
 	imports: [
@@ -32,7 +32,7 @@ import { ResultstorageService } from './resultstorage.service';
 		CityService,
 		ResultstorageService,
 		LowerCasePipe,
-		formatedtime
+		FormatedTime
 	],
 	bootstrap: [AppComponent]
 })

@@ -3,8 +3,8 @@ import { City } from '../city';
 import { CityService } from '../city.service';
 import { LowerCasePipe } from '@angular/common';
 // import { Observable } from 'rxjs/Observable';
-import { formatedtime } from '../formated.time.pipe';
-import { Router } from "@angular/router";
+import { FormatedTime } from '../formated.time.pipe';
+import { Router } from '@angular/router';
 import { ResultstorageService } from '../resultstorage.service';
 
 @Component({
@@ -27,7 +27,7 @@ export class SuggestionComponent implements OnInit {
 	constructor(
 		private cityService: CityService,
 		private lowerCasePipe: LowerCasePipe,
-		private formatedtime: formatedtime,
+		private FormatedTime: FormatedTime,
 		private router: Router,
 		private resultsService: ResultstorageService
 		) {
