@@ -7,32 +7,50 @@ import { CitiesComponent } from './cities/cities.component';
 import { SuggestionComponent } from './suggestion/suggestion.component';
 import { CityService } from './city.service';
 
-import { LowerCasePipe } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
 import { FormatedTime } from './formated.time.pipe';
 import { AppRoutingModule } from './/app-routing.module';
 import { ResultsComponent } from './results/results.component';
 import { ResultstorageService } from './resultstorage.service';
 
+import { HttpClientModule } from '@angular/common/http';
+import { PickedComponent } from './picked/picked.component';
+
+const PIPES = [
+	FormatedTime
+];
+
+const COMPONENTS = [
+	AppComponent,
+	CitiesComponent,
+	SuggestionComponent,
+	ResultsComponent,
+	PickedComponent
+];
+
+const MODULES = [
+	BrowserModule,
+	FormsModule,
+	AppRoutingModule,
+	HttpClientModule
+];
+
+const SERVICES = [
+	CityService,
+	ResultstorageService,
+];
 
 @NgModule({
 	declarations: [
-		AppComponent,
-		CitiesComponent,
-		SuggestionComponent,
-		FormatedTime,
-		ResultsComponent
+		...PIPES,
+		...COMPONENTS
 	],
 	imports: [
-		BrowserModule,
-		FormsModule,
-		AppRoutingModule
+		...MODULES
 	],
 	providers: [
-		CityService,
-		ResultstorageService,
-		LowerCasePipe,
-		FormatedTime
+		...SERVICES,
+		...PIPES
 	],
 	bootstrap: [AppComponent]
 })

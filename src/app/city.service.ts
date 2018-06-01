@@ -4,13 +4,16 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
 import { City } from './city';
-import { CITIES } from './mock-cities';
+
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class CityService {
-	constructor() { }
+	constructor(private http: HttpClient) { }
 
-	getCities(): Observable<City[]> {
-		return of(CITIES);
+	jsonUrl = 'assets/cities.json';
+
+	getCities(): Observable<any> {
+		return this.http.get(this.jsonUrl);
 	}
 }

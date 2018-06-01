@@ -1,8 +1,7 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { City } from '../city';
 import { CityService } from '../city.service';
-import { LowerCasePipe } from '@angular/common';
-// import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import { FormatedTime } from '../formated.time.pipe';
 import { Router } from '@angular/router';
 import { ResultstorageService } from '../resultstorage.service';
@@ -10,64 +9,70 @@ import { ResultstorageService } from '../resultstorage.service';
 @Component({
 	selector: 'app-suggestion',
 	templateUrl: './suggestion.component.html',
-	styleUrls: ['./suggestion.component.css']
+	styleUrls: ['./suggestion.component.css'],
 })
 
-export class SuggestionComponent implements OnInit {
+export class SuggestionComponent implements OnInit, OnDestroy {
 
 	// @Input() city: City;
-	suggested: Array<string> = [];
-	pickedArray: Array<string> = [];
-	// cities: City;
-	cities: any;
-	vreme1: number = -1;
-	coundownRef: any;
-	suggestionInput: string; // ngModel promenljiva mora da bude inicijalizovana ovde
+	private _suggested: Array<string> = [];
+	private _pickedArray: Array<string> = [];
+	// _cities: City;
+	private _cities: any;
+	private _vreme1: number = -1;
+	private coundownRef: any;
+	private suggestionInput: string; // ngModel promenljiva mora da bude inicijalizovana ovde
+
+	public get vreme1(): number {
+		return this._vreme1;
+	}
+
+	public get suggested(): Array<string> {
+		return this._suggested;
+	}
+
+	public get pickedArray(): Array<string> {
+		return this._pickedArray;
+	}
+
+	public get cities(): Array<string> {
+		return this._cities;
+	}
+
 
 	constructor(
 		private cityService: CityService,
-		private lowerCasePipe: LowerCasePipe,
 		private FormatedTime: FormatedTime,
 		private router: Router,
 		private resultsService: ResultstorageService
-		) {
-		// console.log(City);
-	}
+	) { }
 
 	ngOnInit() {
-		this.pickedArray = [];
-		this.cities = {};
-	}
-
-	toLowerCase( val ) {
-		return this.lowerCasePipe.transform(val);
+		this._pickedArray = [];
+		this._cities = {};
 	}
 
 	startCountDown() {
-		if ( this.vreme1 === -1 ) {
-			// this.cityService.getCities().subscribe(
-			// 	cities => {
-					this.vreme1 = this.cities.vreme;
+		if ( this._vreme1 === -1 ) {
+			this._vreme1 = this._cities.vreme;
 
-					this.coundownRef = setInterval(() => {
-						this.vreme1 = this.vreme1 - 1;
+			this.coundownRef = setInterval(() => {
+				this._vreme1 = this._vreme1 - 1;
 
-						if ( this.vreme1 === 0 ) {
-							this.endGame();
-						}
-					}, 1000);
-			// 	}
-			// );
+				if ( this._vreme1 === 0 ) {
+					this.resultsService.endGame(this._pickedArray, this._cities);
+				}
+			}, 1000);
 		}
 	}
 
 	fillSuggestions(suggestionInput) {
-		if ( Object.keys(this.cities).length === 0 ) {
+		if ( Object.keys(this._cities).length === 0 ) {
 			this.cityService.getCities().subscribe(
-				cities => {
-					// deep clone so i can modify local version of array without interferring with mock
-					this.cities = JSON.parse(JSON.stringify(cities[0]));
+				_cities => {
+					this._cities = _cities;
 
+					this.startCountDown();
 					this.generateSuggestions(suggestionInput);
 				}
 			);
@@ -77,18 +82,18 @@ export class SuggestionComponent implements OnInit {
 	}
 
 	generateSuggestions(suggestionInput) {
-		this.suggested = [];
+		this._suggested = [];
 
 		if ( suggestionInput === '') {
 			suggestionInput = '';
 		} else {
 			let counter = 0;
-			this.cities.ponudjene.some( grad => {
+			this._cities.ponudjene.some( grad => {
 				if ( counter < 5 ) {
-					const gradL = this.toLowerCase(grad);
+					const gradL = grad.toLowerCase();
 
-					if ( gradL.indexOf( this.toLowerCase(suggestionInput) ) !== -1) {
-						this.suggested.push(grad);
+					if ( gradL.indexOf( suggestionInput.toLowerCase() ) !== -1) {
+						this._suggested.push(grad);
 						counter++;
 					}
 				} else {
@@ -99,49 +104,18 @@ export class SuggestionComponent implements OnInit {
 	}
 
 	checkAndAddPicked(picked) {
-		const indexInSuggestion = this.cities.ponudjene.indexOf( picked );
-		if ( this.pickedArray.indexOf( picked ) === -1) {
-			this.pickedArray.push(picked);
-			this.cities.ponudjene.splice(indexInSuggestion, 1);
+		const indexInSuggestion = this._cities.ponudjene.indexOf( picked );
+		if ( this._pickedArray.indexOf( picked ) === -1) {
+			this._pickedArray.push(picked);
+			this._cities.ponudjene.splice(indexInSuggestion, 1);
 		}
 
 		this.suggestionInput = '';
-		this.suggested = [];
+		this._suggested = [];
 	}
 
-	removeSuggestion(picked) {
-		const index = this.pickedArray.indexOf( picked );
-		if ( index !== -1 ) {
-			this.pickedArray.splice(index, 1);
-			this.cities.ponudjene.push(picked);
-			this.cities.ponudjene.sort();
-			this.generateSuggestions('');
-		}
-	}
-
-	endGame() {
+	ngOnDestroy() {
+		console.log('destroyed');
 		clearInterval( this.coundownRef );
-		const percents: number = this.calculatePercents();
-		this.resultsService.setResult(percents + '');
-		this.router.navigate(['results']);
-	}
-
-	calculatePercents() {
-		let percents: number = 0;
-		const numberOfPicked: number = this.pickedArray.length;
-		let correctPicked: number = 0;
-
-		if ( numberOfPicked > 0) {
-			this.pickedArray.forEach(element => {
-				if ( this.cities.tacno.indexOf( element ) !== -1 ) {
-					correctPicked ++;
-				}
-			});
-		}
-
-		if (correctPicked > 0) {
-			percents = (100 / numberOfPicked ) * correctPicked;
-		}
-		return percents;
 	}
 }

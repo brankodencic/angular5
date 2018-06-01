@@ -1,0 +1,7 @@
+<div id="chosen" *ngIf="pickedArray">
+	<span>Choosen:</span>
+	<div *ngFor="let pickedItem of pickedArray" (click)="removeSuggestion(pickedItem)">{{pickedItem}} <span class="delete">x</span></div>
+	<div>
+		<div class="btn btn-success" (click)="endGame()">End early</div>
+	</div>
+</div>

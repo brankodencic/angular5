@@ -1,4 +1,4 @@
-export class City {
+export interface City {
 	tacno: Array<string>;
 	vreme: number;
 	oblast: string;

@@ -4,12 +4,12 @@
 
 <div>
 	<label>Vreme:
-		<span>{{cities.vreme | FormatedTime:vreme}}</span>
+		<span *ngIf="cities">{{cities.vreme | FormatedTime:vreme}}</span>
 	</label>
 </div>
 <div>
 	<label>Oblast:
-		<span>{{cities.oblast}}</span>
+		<span *ngIf="cities">{{cities.oblast}}</span>
 	</label>
 </div>
 

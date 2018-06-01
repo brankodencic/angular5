@@ -8,18 +8,13 @@
 		</div>
 		<div>
 			<label>name:
-				<input [(ngModel)]="suggestionInput" (keyup)="fillSuggestions(suggestionInput)" (keyup)="startCountDown()" placeholder="name">
+				<input [(ngModel)]="suggestionInput" (keyup)="fillSuggestions(suggestionInput)" placeholder="name">
 			</label>
 			<div id="autocompleteList" class="col-md-6" *ngIf="suggested.length">
 				<div *ngFor="let suggestion of suggested" (click)="checkAndAddPicked(suggestion)">{{suggestion}}</div>
 			</div>
 		</div>
 	</div>
-	<div id="chosen" *ngIf="pickedArray">
-		<span>Choosen:</span>
-		<div *ngFor="let pickedItem of pickedArray" (click)="removeSuggestion(pickedItem)">{{pickedItem}} <span class="delete">x</span></div>
-		<div>
-			<div class="btn btn-success" (click)="endGame()">End early</div>
-		</div>
-	</div>
+
+	<app-picked [pickedArray]='pickedArray' [cities]='cities'></app-picked>
 </div>

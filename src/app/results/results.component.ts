@@ -16,7 +16,6 @@ export class ResultsComponent implements OnInit {
 	constructor(private resultsService: ResultstorageService ) { }
 
 	ngOnInit() {
-		console.log('init');
 		this.result = parseInt (this.resultsService.getResult(), 10);
 		this.counter = 0;
 

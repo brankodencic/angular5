@@ -21,6 +21,6 @@ export class CitiesComponent implements OnInit {
 
 	getCities(): void {
 		this.cityService.getCities()
-			.subscribe( cities => this.cities = cities[0] );
+			.subscribe( (cities: City) => { this.cities = cities; } );
 	}
 }

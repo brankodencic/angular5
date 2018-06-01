@@ -1,14 +1,17 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
-#autocompleteList{
-	margin-left: 47px;
-	margin-top: -7px;
+#chosen{
 	border: 1px solid #cfcfcf;
 	border-radius: 7px;
 	width: 199px;
 	padding: 6px;
 }
 
-#autocompleteList > div{
+#chosen .delete{
+	color: red;
+}
+
+#chosen > div{
 	cursor: pointer;
 }
+
